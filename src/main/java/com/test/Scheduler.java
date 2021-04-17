@@ -30,12 +30,14 @@ public class Scheduler {
     this.myGauge = meterRegistry.gauge("gauge-for-counting-number-of-pods", new AtomicInteger(0));
   }
 
-  @Scheduled(fixedRateString = "500", initialDelayString = "0")
+  @Scheduled(fixedRateString = "50000", initialDelayString = "0")
   public void schedulingTask() {
     myGauge.set(getAllPods().size());
   }
 
   private List<V1Pod> getAllPods() {
+    List<V1Pod> pods = new ArrayList<>();
+
     try {
       ApiClient client = ClientBuilder.cluster().build();
 
@@ -52,7 +54,6 @@ public class Scheduler {
        * 
        * logger.info("Namespace-> " + ns);
        */
-      List<V1Pod> pods = new ArrayList<>();
       V1PodList list = api.listNamespacedPod("default", null, null, null, null, null, 0, null, null, 5000,
           Boolean.FALSE);
       if (list != null && CollectionUtils.isNotEmpty(list.getItems())) {
@@ -61,7 +62,6 @@ public class Scheduler {
       }
 
       // }
-      return pods;
 
     } catch (ApiException e) {
       ApiException e1 = e;
@@ -70,8 +70,10 @@ public class Scheduler {
       throw new IllegalStateException("Exception in finding podCount", e);
     } catch (IOException e) {
       throw new IllegalStateException("Exception in finding podCount", e);
+    } catch (Exception e) {
+      e.printStackTrace();
+
     }
-
+    return pods;
   }
-
 }

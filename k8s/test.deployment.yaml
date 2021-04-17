@@ -17,7 +17,7 @@ spec:
       serviceAccount: udef-pod-reader
       containers:
       - name: server
-        image: pvs5/java-test:1.0.1
+        image: pvs5/java-test:1.2
         imagePullPolicy: Always        
         ports:
         - containerPort: 8080

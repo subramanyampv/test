@@ -86,7 +86,7 @@
 						<image>openjdk:11-jre-slim</image>
 					</from>
 					<to>
-						<image>registry.hub.docker.com/pvs5/java-test:1.0.1</image>
+						<image>registry.hub.docker.com/pvs5/java-test:1.2</image>
 						<auth>
 							<username>pvs5</username>
 							<password>docker123</password>
